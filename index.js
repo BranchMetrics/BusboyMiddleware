@@ -17,13 +17,15 @@ module.exports = function BusboyMiddleware(uploadCallback) {
 			file.on('data', function(d) { bufs.push(d); });
 			file.on('end', function() {
 				var data = {
+					field: fieldname,
 					name: filename,
 					data: Buffer.concat(bufs),
 					mime: mimetype
 				};
+
 				if (uploadCallback) {
 					waiting++;
-					uploadCallback(req, data, function(err, res) {
+					uploadCallback(req, res, data, function(err, res) {
 						// Not sure if this'll work...
 						if (err) {
 							return next(err);
