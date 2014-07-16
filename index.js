@@ -1,4 +1,4 @@
-var busboy = require('busboy');
+var Busboy = require('busboy');
 
 module.exports = function BusboyMiddleware(uploadCallback) {
 	return function(req, res, next) {
@@ -18,18 +18,18 @@ module.exports = function BusboyMiddleware(uploadCallback) {
 			file.on('end', function() {
 				var data = {
 					name: filename,
-					data: Buffer.concat(bufs);
+					data: Buffer.concat(bufs),
 					mime: mimetype
 				};
 				if (uploadCallback) {
 					waiting++;
-					uploadCallback(data, function(err, res) {
+					uploadCallback(req, data, function(err, res) {
 						// Not sure if this'll work...
 						if (err) {
 							return next(err);
 							waiting = -1;
 						}
-						req.files[filename] = res;
+						req.files[fieldname] = res;
 						done();
 					});
 				}
