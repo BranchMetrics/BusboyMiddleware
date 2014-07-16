@@ -33,7 +33,7 @@ app.post('/', function(req, res) {
 
 var app = require('express')();
 
-app.use(require('BusboyMiddleware')(function(file, cb) {
+app.use(require('BusboyMiddleware')(function(req, file, cb) {
 	var customFilename = file.name.replace(/^[a-zA-Z0-9]/g, '') + (new Date().getTime());
 	uploadToS3(customFilename, file.data, function(err, ret) {
 		if (err) { cb(err); }
