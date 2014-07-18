@@ -2,6 +2,7 @@ var Busboy = require('busboy');
 
 module.exports = function BusboyMiddleware(uploadCallback) {
 	return function(req, res, next) {
+		if (!req.headers['content-type'].match(/multipart\/form-data/)) { return next(); }
 		var waiting = 1, done = function() {
 			if ((--waiting) == 0) {
 				next();
