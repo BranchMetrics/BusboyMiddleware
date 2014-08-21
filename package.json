@@ -1,6 +1,6 @@
 {
   "name": "busboymiddleware",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Provide a simple middleware for file uploads, using busboy.",
   "main": "index.js",
   "scripts": {

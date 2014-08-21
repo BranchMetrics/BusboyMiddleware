@@ -42,7 +42,7 @@ module.exports = function BusboyMiddleware(uploadCallback) {
 			});
 		});
 
-		busboy.on('field', function(k, v) { req.body[k] = v; });
+		busboy.on('field', function(k, v) { req.body[k] = JSON.parse(v); });
 		busboy.on('finish', done);
 		req.pipe(busboy);
 	};
